@@ -1,0 +1,65 @@
+# a53xdcm (jpn_dcm)
+on early-init && property:ro.boot.em.model=SC-53C
+    # Firmware blobs
+    mount none /vendor/firmware/SC-53C/AP_AUDIO_SLSI.bin /vendor/firmware/AP_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SC-53C/APDV_AUDIO_SLSI.bin /vendor/firmware/APDV_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SC-53C/mfc_fw.bin /vendor/firmware/mfc_fw.bin bind
+    mount none /vendor/firmware/SC-53C/NPU.bin /vendor/firmware/NPU.bin bind
+    mount none /vendor/firmware/SC-53C/os.checked.bin /vendor/firmware/os.checked.bin bind
+    mount none /vendor/firmware/SC-53C/vts.bin /vendor/firmware/vts.bin bind
+    mount none /vendor/firmware/SC-53C/calliope_sram.bin /vendor/firmware/calliope_sram.bin bind
+    # TEEgris
+    mount none /vendor/tee_SC-53C /vendor/tee bind
+
+# a53xzc (chn_open)
+on early-init && property:ro.boot.em.model=SM-A5360
+    # Firmware blobs
+    mount none /vendor/firmware/SM-A5360/AP_AUDIO_SLSI.bin /vendor/firmware/AP_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SM-A5360/APDV_AUDIO_SLSI.bin /vendor/firmware/APDV_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SM-A5360/mfc_fw.bin /vendor/firmware/mfc_fw.bin bind
+    mount none /vendor/firmware/SM-A5360/NPU.bin /vendor/firmware/NPU.bin bind
+    mount none /vendor/firmware/SM-A5360/os.checked.bin /vendor/firmware/os.checked.bin bind
+    mount none /vendor/firmware/SM-A5360/vts.bin /vendor/firmware/vts.bin bind
+    mount none /vendor/firmware/SM-A5360/calliope_sram.bin /vendor/firmware/calliope_sram.bin bind
+    # TEEgris
+    mount none /vendor/tee_SM-A5360 /vendor/tee bind
+
+# a53xnaxx (eur_open)
+on early-init && property:ro.boot.em.model=SM-A536B
+    # Firmware blobs
+    mount none /vendor/firmware/SM-A536B/AP_AUDIO_SLSI.bin /vendor/firmware/AP_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SM-A536B/APDV_AUDIO_SLSI.bin /vendor/firmware/APDV_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SM-A536B/mfc_fw.bin /vendor/firmware/mfc_fw.bin bind
+    mount none /vendor/firmware/SM-A536B/NPU.bin /vendor/firmware/NPU.bin bind
+    mount none /vendor/firmware/SM-A536B/os.checked.bin /vendor/firmware/os.checked.bin bind
+    mount none /vendor/firmware/SM-A536B/vts.bin /vendor/firmware/vts.bin bind
+    mount none /vendor/firmware/SM-A536B/calliope_sram.bin /vendor/firmware/calliope_sram.bin bind
+
+# a53xnsxx (cis_open)
+on early-init && property:ro.boot.em.model=SM-A536E
+    # Firmware blobs
+    mount none /vendor/firmware/SM-A536E/AP_AUDIO_SLSI.bin /vendor/firmware/AP_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SM-A536E/APDV_AUDIO_SLSI.bin /vendor/firmware/APDV_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SM-A536E/mfc_fw.bin /vendor/firmware/mfc_fw.bin bind
+    mount none /vendor/firmware/SM-A536E/NPU.bin /vendor/firmware/NPU.bin bind
+    mount none /vendor/firmware/SM-A536E/os.checked.bin /vendor/firmware/os.checked.bin bind
+    mount none /vendor/firmware/SM-A536E/vts.bin /vendor/firmware/vts.bin bind
+    mount none /vendor/firmware/SM-A536E/calliope_sram.bin /vendor/firmware/calliope_sram.bin bind
+    # TEEgris
+    mount none /vendor/tee_SM-A536E /vendor/tee bind
+
+# a53xksx (kor_open)
+on early-init && property:ro.boot.em.model=SM-A536N
+    # Firmware blobs
+    mount none /vendor/firmware/SM-A536N/AP_AUDIO_SLSI.bin /vendor/firmware/AP_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SM-A536N/APDV_AUDIO_SLSI.bin /vendor/firmware/APDV_AUDIO_SLSI.bin bind
+    mount none /vendor/firmware/SM-A536N/mfc_fw.bin /vendor/firmware/mfc_fw.bin bind
+    mount none /vendor/firmware/SM-A536N/NPU.bin /vendor/firmware/NPU.bin bind
+    mount none /vendor/firmware/SM-A536N/os.checked.bin /vendor/firmware/os.checked.bin bind
+    mount none /vendor/firmware/SM-A536N/vts.bin /vendor/firmware/vts.bin bind
+    mount none /vendor/firmware/SM-A536N/calliope_sram.bin /vendor/firmware/calliope_sram.bin bind
+    # TEEgris
+    mount none /vendor/tee_SM-A536N /vendor/tee bind
+
+on boot
+    restart audioserver
