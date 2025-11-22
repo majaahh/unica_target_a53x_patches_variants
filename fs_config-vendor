@@ -1,4 +1,9 @@
 vendor/etc/init/init.a53x.unify.rc 0 0 644 capabilities=0x0
+vendor/etc/sku 0 2000 755 capabilities=0x0
+vendor/etc/sku/SC-53C.prop 0 0 600 capabilities=0x0
+vendor/etc/sku/SM-A5360.prop 0 0 600 capabilities=0x0
+vendor/etc/sku/SM-A536E.prop 0 0 600 capabilities=0x0
+vendor/etc/sku/SM-A536N.prop 0 0 600 capabilities=0x0
 vendor/firmware/SC-53C 0 0 644 capabilities=0x0
 vendor/firmware/SC-53C/AP_AUDIO_SLSI.bin 0 0 644 capabilities=0x0
 vendor/firmware/SC-53C/APDV_AUDIO_SLSI.bin 0 0 644 capabilities=0x0
