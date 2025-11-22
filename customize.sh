@@ -10,6 +10,9 @@ for i in "odm" "vendor" "vendor_dlkm"; do
     } >> "$WORK_DIR/$PROP"
 done
 
+LOG "- Copying SC-53C dtbo to kernel dir"
+EVAL "cp -fa \"$MODPATH/dtbo/dtbo_jpn.img\" \"$WORK_DIR/kernel/dtbo_jpn.img\""
+
 if ! grep -q "init_31_0 tee_file" "$WORK_DIR/vendor/etc/selinux/vendor_sepolicy.cil"; then
     {
         echo "(allow init_31_0 tee_file (dir (mounton)))"
