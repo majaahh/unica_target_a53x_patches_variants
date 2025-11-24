@@ -63,3 +63,22 @@ on early-init && property:ro.boot.em.model=SM-A536N
 
 on boot
     restart audioserver
+
+service vendor.nfc_hal_service /vendor/bin/hw/sec.android.hardware.nfc@1.2-service
+    class hal
+    oneshot
+    disabled
+    user nfc
+    group nfc net_bt_admin
+
+service nfc_hal_service /vendor/bin/hw/android.hardware.nfc@1.2-service.samsung
+    oneshot
+    disabled
+    user nfc
+    group nfc net_bt_admin
+
+on property:ro.vendor.nfc.feature.chipname=NXP
+    start vendor.nfc_hal_service
+
+on property:ro.vendor.nfc.feature.chipname=SLSI
+    start nfc_hal_service
