@@ -1,16 +1,3 @@
-# a53xdcm (jpn_dcm)
-on early-init && property:ro.boot.em.model=SC-53C
-    # Firmware blobs
-    mount none /vendor/firmware/SC-53C/AP_AUDIO_SLSI.bin /vendor/firmware/AP_AUDIO_SLSI.bin bind
-    mount none /vendor/firmware/SC-53C/APDV_AUDIO_SLSI.bin /vendor/firmware/APDV_AUDIO_SLSI.bin bind
-    mount none /vendor/firmware/SC-53C/mfc_fw.bin /vendor/firmware/mfc_fw.bin bind
-    mount none /vendor/firmware/SC-53C/NPU.bin /vendor/firmware/NPU.bin bind
-    mount none /vendor/firmware/SC-53C/os.checked.bin /vendor/firmware/os.checked.bin bind
-    mount none /vendor/firmware/SC-53C/vts.bin /vendor/firmware/vts.bin bind
-    mount none /vendor/firmware/SC-53C/calliope_sram.bin /vendor/firmware/calliope_sram.bin bind
-    # TEEgris
-    mount none /vendor/tee_SC-53C /vendor/tee bind
-
 # a53xzc (chn_open)
 on early-init && property:ro.boot.em.model=SM-A5360
     # Firmware blobs
@@ -63,22 +50,3 @@ on early-init && property:ro.boot.em.model=SM-A536N
 
 on boot
     restart audioserver
-
-service vendor.nfc_hal_service /vendor/bin/hw/sec.android.hardware.nfc@1.2-service
-    class hal
-    oneshot
-    disabled
-    user nfc
-    group nfc net_bt_admin
-
-service nfc_hal_service /vendor/bin/hw/android.hardware.nfc@1.2-service.samsung
-    oneshot
-    disabled
-    user nfc
-    group nfc net_bt_admin
-
-on property:ro.vendor.nfc.feature.chipname=NXP
-    start vendor.nfc_hal_service
-
-on property:ro.vendor.nfc.feature.chipname=SLSI
-    start nfc_hal_service
