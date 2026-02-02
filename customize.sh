@@ -14,6 +14,57 @@ for i in "odm" "vendor" "vendor_dlkm"; do
     unset PROP
 done
 
+LOG_STEP_IN "- Adding NXP NFC Support"
+LOG_STEP_IN "- Deleting eSE/NFC blobs"
+LOG "- Patching /vendor/etc/vintf/manifest.xml"
+perl -0777 -i -pe "
+s{
+<hal\s+format=\"hidl\"\s+override=\"true\">\s*
+<name>android\.hardware\.secure_element</name>
+.*?
+</hal>\s*
+}{}gsx
+" "$WORK_DIR/vendor/etc/vintf/manifest.xml" || return 1
+DELETE_FROM_WORK_DIR "vendor" "bin/hw/android.hardware.secure_element@1.2-service"
+DELETE_FROM_WORK_DIR "vendor" "etc/init/android.hardware.secure_element@1.2-service.rc"
+DELETE_FROM_WORK_DIR "vendor" "etc/init/sec.android.hardware.nfc@1.2-service.rc"
+DELETE_FROM_WORK_DIR "vendor" "etc/permissions/android.hardware.nfc.ese.xml"
+DELETE_FROM_WORK_DIR "vendor" "etc/permissions/android.hardware.se.omapi.ese.xml"
+DELETE_FROM_WORK_DIR "vendor" "lib64/android.hardware.secure_element-impl-gto.so"
+DELETE_FROM_WORK_DIR "vendor" "lib64/android.hardware.secure_element@1.0.so"
+DELETE_FROM_WORK_DIR "vendor" "lib64/android.hardware.secure_element@1.1.so"
+DELETE_FROM_WORK_DIR "vendor" "lib64/android.hardware.secure_element@1.2.so"
+LOG_STEP_OUT
+
+LOG_STEP_IN "- Adding NFC blobs"
+ADD_TO_WORK_DIR "a53xdcm" "system" "system/lib/libnfc_nci_jni.so"
+ADD_TO_WORK_DIR "a53xdcm" "system" "system/lib/libnfc_prop_extn.so"
+ADD_TO_WORK_DIR "a53xdcm" "system" "system/lib/libnfc_vendor_extn.so"
+ADD_TO_WORK_DIR "a53xdcm" "system" "system/lib64/libnfc_nci_jni.so"
+ADD_TO_WORK_DIR "a53xdcm" "system" "system/lib64/libnfc_prop_extn.so"
+ADD_TO_WORK_DIR "a53xdcm" "system" "system/lib64/libnfc_vendor_extn.so"
+ADD_TO_WORK_DIR "a53xdcm" "vendor" "bin/hw/nxp.android.hardware.nfc@1.2-service"
+ADD_TO_WORK_DIR "a53xdcm" "vendor" "etc/libnfc-nxp.conf"
+ADD_TO_WORK_DIR "a53xdcm" "vendor" "etc/nfc/libnfc-nxp_RF.conf"
+ADD_TO_WORK_DIR "a53xdcm" "vendor" "firmware/nfc/libsn100u_fw.so"
+ADD_TO_WORK_DIR "a53xdcm" "vendor" "lib64/nfc_nci_nxpsn.so"
+
+ADD_TO_WORK_DIR "a53xdcm" "system" "system/etc/libnfc-nci.conf"
+
+LOG "- Renaming /system/system/etc/libnfc-nci.conf to /system/system/etc/libnfc-nci-NXP.conf"
+EVAL "mv \"$WORK_DIR/system/system/etc/libnfc-nci.conf\" \"$WORK_DIR/system/system/etc/libnfc-nci-NXP.conf\""
+sed -i "s/libnfc-nci\\\\.conf/libnfc-nci-NXP\\\\.conf/g" "$WORK_DIR/configs/file_context-system" || return 1
+sed -i "s/libnfc-nci\.conf/libnfc-nci-NXP\.conf/g" "$WORK_DIR/configs/fs_config-system" || return 1
+
+ADD_TO_WORK_DIR "$TARGET_FIRMWARE" "system" "system/etc/libnfc-nci.conf" 0 0 644 "u:object_r:system_file:s0"
+
+LOG "- Renaming /system/system/etc/libnfc-nci.conf to /system/system/etc/libnfc-nci-SLSI.conf"
+EVAL "mv \"$WORK_DIR/system/system/etc/libnfc-nci.conf\" \"$WORK_DIR/system/system/etc/libnfc-nci-SLSI.conf\""
+sed -i "s/libnfc-nci\\\\.conf/libnfc-nci-SLSI\\\\.conf/g" "$WORK_DIR/configs/file_context-system" || return 1
+sed -i "s/libnfc-nci\.conf/libnfc-nci-SLSI\.conf/g" "$WORK_DIR/configs/fs_config-system" || return 1
+LOG_STEP_OUT
+LOG_STEP_OUT
+
 if ! grep -q "init_31_0 tee_file" "$WORK_DIR/vendor/etc/selinux/vendor_sepolicy.cil"; then
     {
         echo "(allow init_31_0 tee_file (dir (mounton)))"
