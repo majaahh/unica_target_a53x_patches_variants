@@ -1,3 +1,5 @@
+ADD_TO_WORK_DIR "$MODPATH" "vendor_dlkm" "." 0 0 755 "u:object_r:vendor_file:s0"
+
 for i in "odm" "vendor" "vendor_dlkm"; do
     PROP="$i/etc/build.prop"
     if [[ "$i" == "vendor" ]]; then
