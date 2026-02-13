@@ -10,6 +10,8 @@ for i in "odm" "vendor" "vendor_dlkm"; do
         echo "# Added by target/a53x/patches/variants/customize.sh"
         echo "import /$i/etc/sku/\${ro.boot.em.model}.prop"
     } >> "$WORK_DIR/$PROP"
+
+    unset PROP
 done
 
 if ! grep -q "init_31_0 tee_file" "$WORK_DIR/vendor/etc/selinux/vendor_sepolicy.cil"; then
