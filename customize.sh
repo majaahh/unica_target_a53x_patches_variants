@@ -15,25 +15,13 @@ for i in "odm" "vendor" "vendor_dlkm"; do
 done
 
 LOG_STEP_IN "- Adding NXP NFC Support"
-LOG_STEP_IN "- Deleting eSE/NFC blobs"
-LOG "- Patching /vendor/etc/vintf/manifest.xml"
-perl -0777 -i -pe "
-s{
-<hal\s+format=\"hidl\"\s+override=\"true\">\s*
-<name>android\.hardware\.secure_element</name>
-.*?
-</hal>\s*
-}{}gsx
-" "$WORK_DIR/vendor/etc/vintf/manifest.xml" || return 1
-DELETE_FROM_WORK_DIR "vendor" "bin/hw/android.hardware.secure_element@1.2-service"
-DELETE_FROM_WORK_DIR "vendor" "etc/init/android.hardware.secure_element@1.2-service.rc"
+LOG_STEP_IN "- Deleting NFC blobs"
 DELETE_FROM_WORK_DIR "vendor" "etc/init/sec.android.hardware.nfc@1.2-service.rc"
-DELETE_FROM_WORK_DIR "vendor" "etc/permissions/android.hardware.nfc.ese.xml"
-DELETE_FROM_WORK_DIR "vendor" "etc/permissions/android.hardware.se.omapi.ese.xml"
-DELETE_FROM_WORK_DIR "vendor" "lib64/android.hardware.secure_element-impl-gto.so"
-DELETE_FROM_WORK_DIR "vendor" "lib64/android.hardware.secure_element@1.0.so"
-DELETE_FROM_WORK_DIR "vendor" "lib64/android.hardware.secure_element@1.1.so"
-DELETE_FROM_WORK_DIR "vendor" "lib64/android.hardware.secure_element@1.2.so"
+LOG_STEP_OUT
+
+LOG_STEP_IN "- Adding NXP eSE blobs"
+ADD_TO_WORK_DIR "a53xdcm" "vendor" "etc/libese-nxp.conf"
+ADD_TO_WORK_DIR "a53xdcm" "vendor" "lib64/ese_spi_nxp.so"
 LOG_STEP_OUT
 
 LOG_STEP_IN "- Adding NFC blobs"
