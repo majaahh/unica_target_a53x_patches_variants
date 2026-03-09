@@ -25,6 +25,7 @@ ADD_TO_WORK_DIR "a53xdcm" "vendor" "etc/libnfc-nxp.conf"
 ADD_TO_WORK_DIR "a53xdcm" "vendor" "etc/nfc/libnfc-nxp_RF.conf"
 ADD_TO_WORK_DIR "a53xdcm" "vendor" "firmware/nfc/libsn100u_fw.so"
 ADD_TO_WORK_DIR "a53xdcm" "vendor" "lib64/nfc_nci_nxpsn.so"
+LOG_STEP_OUT
 
 LOG_STEP_IN "- Adding NXP eSE blobs"
 ADD_TO_WORK_DIR "a53xdcm" "vendor" "etc/libese-nxp.conf"
