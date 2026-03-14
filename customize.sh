@@ -56,3 +56,18 @@ LOG "- Adding SELinux entries"
     echo "(allow init_31_0 vendor_npu_firmware_file (file (mounton)))"
     echo "(allow priv_app_31_0 vendor_npu_firmware_file (file (getattr)))"
 } >> "$WORK_DIR/vendor/etc/selinux/vendor_sepolicy.cil" || return 1
+
+# Nuke model checks
+# Before: [mov r7,r0]
+# After: [movs r7,#0x1]
+HEX_PATCH "$WORK_DIR/vendor/lib/soundfx/libswdap.so" "3046884707463068" "3046884701273068"
+
+# Before: [
+# ldr x8,[x8, #0x10]
+# blr x8
+# ]
+# After: [
+# mov w0,#0x1
+# nop
+# ]
+HEX_PATCH "$WORK_DIR/vendor/lib64/soundfx/libswdap.so" "e00315aa080940f900013fd6" "e00315aa200080521f2003d5"
